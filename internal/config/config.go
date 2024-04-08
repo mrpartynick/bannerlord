@@ -8,17 +8,17 @@ import (
 )
 
 type Config struct {
-	server
-	postgres
+	Server
+	Postgres
 }
 
-type server struct {
+type Server struct {
 	Address     string        `yaml:"address" env-default:"localhost:8080"`
 	Timeout     time.Duration `yaml:"timeout" env-default:"4s"`
 	IdleTimeout time.Duration `yaml:"idle_timeout" env-default:"60s"`
 }
 
-type postgres struct {
+type Postgres struct {
 	Host     string `yaml:"postgres_host"`
 	DBName   string `yaml:"postgres_db_name"`
 	UserName string `yaml:"postgres_user_name"`
