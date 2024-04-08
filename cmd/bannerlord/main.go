@@ -7,10 +7,12 @@ import (
 
 func main() {
 	cfgPath, migrate, migratePath := getFlags()
+
 	// config init
 	cfg := config.MustLoad(*cfgPath)
 	var _ = cfg
 	var _ = migratePath
+
 	// database setup
 	if *migrate {
 
