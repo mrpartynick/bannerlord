@@ -19,11 +19,12 @@ type Server struct {
 }
 
 type Postgres struct {
-	Host     string `yaml:"postgres_host"`
-	DBName   string `yaml:"postgres_db_name"`
-	UserName string `yaml:"postgres_user_name"`
-	Password string `yaml:"postgres_password"`
-	Port     string `yaml:"postgres_port"`
+	Host        string `yaml:"postgres_host"`
+	DBName      string `yaml:"postgres_db_name"`
+	UsersDBName string `yaml:"users_db_name"`
+	UserName    string `yaml:"postgres_user_name"`
+	Password    string `yaml:"postgres_password"`
+	Port        string `yaml:"postgres_port"`
 }
 
 func MustLoad(path string) *Config {

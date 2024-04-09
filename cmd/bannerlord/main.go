@@ -2,20 +2,25 @@ package main
 
 import (
 	"bannerlord/internal/config"
-	"bannerlord/pkg/migrator"
+	"bannerlord/internal/pgmanager"
 	"flag"
+	"log"
 )
 
 func main() {
-	cfgPath, migrate, migratePath := getFlags()
-
+	cfgPath, _, _ := getFlags()
 	// config init
 	cfg := config.MustLoad(*cfgPath)
-	var _ = cfg
-	var _ = migratePath
-	var _ = migrate
 
-	migrator.Make()
+	// storage setup
+	storage := pgmanager.New(cfg)
+	err := storage.Connect()
+	if err != nil {
+		log.Fatalf("error with connection to database %v", err)
+	}
+	log.Println("Succesfully connected to database")
+
+	// routing setup
 }
 
 func getFlags() (*string, *bool, *string) {
