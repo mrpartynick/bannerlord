@@ -2,6 +2,7 @@ package main
 
 import (
 	"bannerlord/internal/config"
+	"bannerlord/pkg/migrator"
 	"flag"
 )
 
@@ -12,11 +13,9 @@ func main() {
 	cfg := config.MustLoad(*cfgPath)
 	var _ = cfg
 	var _ = migratePath
+	var _ = migrate
 
-	// database setup
-	if *migrate {
-
-	}
+	migrator.Make()
 }
 
 func getFlags() (*string, *bool, *string) {
