@@ -2,8 +2,11 @@ package tokenator
 
 import (
 	"github.com/golang-jwt/jwt/v5"
+	"sync"
 	"time"
 )
+
+var m = sync.Mutex{}
 
 // TODO: Проверить на tread-safety
 type tokenator struct {
@@ -24,6 +27,8 @@ func (t *tokenator) Generate(login string, isAdmin bool) (string, error) {
 		return "", err
 	}
 
+	m.Lock()
+	defer m.Unlock()
 	if isAdmin {
 		t.admins[token] = login
 	} else {
@@ -34,6 +39,8 @@ func (t *tokenator) Generate(login string, isAdmin bool) (string, error) {
 }
 
 func (t *tokenator) Check(token string, isAdmin bool) bool {
+	defer m.Unlock()
+	m.Lock()
 	if isAdmin {
 		if _, ok := t.admins[token]; ok {
 			return true

@@ -3,6 +3,7 @@ package main
 import (
 	"bannerlord/internal/config"
 	"bannerlord/internal/pgmanager"
+	"bannerlord/pkg/tokenator"
 	"flag"
 	"log"
 )
@@ -20,7 +21,9 @@ func main() {
 	}
 	log.Println("Succesfully connected to database")
 
-	// routing setup
+	// server setup
+	t := tokenator.New()
+	var _ = t
 }
 
 func getFlags() (*string, *bool, *string) {

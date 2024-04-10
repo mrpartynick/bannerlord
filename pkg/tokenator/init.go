@@ -2,12 +2,12 @@ package tokenator
 
 import "math/rand"
 
-var secretKey []rune
+var secretKey []byte
 
 func init() {
-	letterRunes := []rune("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ")
+	letterRunes := []byte("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ")
 
-	b := make([]rune, 10)
+	b := make([]byte, 10)
 	for i := range b {
 		b[i] = letterRunes[rand.Intn(len(letterRunes))]
 	}
