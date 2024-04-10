@@ -2,7 +2,7 @@ package pgmanager
 
 import (
 	"bannerlord/internal/config"
-	"bannerlord/internal/services"
+	"bannerlord/internal/services/storage"
 	"context"
 	"github.com/go-pg/pg/v10"
 )
@@ -12,7 +12,7 @@ type pgManager struct {
 	db  *pg.DB
 }
 
-func New(cfg *config.Config) services.StorageService {
+func New(cfg *config.Config) storage.Service {
 	return &pgManager{cfg: *cfg}
 }
 
