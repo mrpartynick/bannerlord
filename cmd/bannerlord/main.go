@@ -1,11 +1,13 @@
 package main
 
 import (
-	"bannerlord/internal/config"
-	"bannerlord/internal/pgmanager"
+	"bannerlord/config"
+	api2 "bannerlord/internal/api"
+	"bannerlord/internal/pgprovider"
 	"bannerlord/pkg/tokenator"
 	"flag"
 	"log"
+	"net/http"
 )
 
 func main() {
@@ -14,8 +16,9 @@ func main() {
 	cfg := config.MustLoad(*cfgPath)
 
 	// storage setup
-	storage := pgmanager.New(cfg)
+	storage := pgprovider.New(cfg)
 	err := storage.Connect()
+
 	if err != nil {
 		log.Fatalf("error with connection to database %v", err)
 	}
@@ -23,13 +26,15 @@ func main() {
 
 	// server setup
 	t := tokenator.New()
-	var _ = t
+
+	api := api2.New(storage, t)
+	http.ListenAndServe(":8080", api)
 }
 
 func getFlags() (*string, *bool, *string) {
 	configPath := flag.String(
 		"config_path",
-		"internal/config/config.yaml",
+		"config/config.yaml",
 		"path to config file")
 	migrate := flag.Bool("migrate", false, "flag for applying migrations")
 	migratePath := flag.String("migrate_path", "", "")

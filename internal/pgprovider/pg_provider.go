@@ -1,22 +1,22 @@
-package pgmanager
+package pgprovider
 
 import (
-	"bannerlord/internal/config"
-	"bannerlord/internal/services/storage"
+	"bannerlord/config"
+	"bannerlord/internal/services"
 	"context"
 	"github.com/go-pg/pg/v10"
 )
 
-type pgManager struct {
+type pgProvider struct {
 	cfg config.Config
 	db  *pg.DB
 }
 
-func New(cfg *config.Config) storage.Service {
-	return &pgManager{cfg: *cfg}
+func New(cfg *config.Config) services.Storage {
+	return &pgProvider{cfg: *cfg}
 }
 
-func (p *pgManager) Connect() error {
+func (p *pgProvider) Connect() error {
 	p.db = pg.Connect(&pg.Options{
 		Addr:            p.cfg.Host + ":" + p.cfg.Port,
 		User:            p.cfg.UserName,
