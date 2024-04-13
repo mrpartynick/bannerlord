@@ -4,6 +4,7 @@ import (
 	"bannerlord/config"
 	api2 "bannerlord/internal/api"
 	"bannerlord/internal/pgprovider"
+	"bannerlord/internal/services"
 	"bannerlord/pkg/tokenator"
 	"flag"
 	"log"
@@ -25,7 +26,7 @@ func main() {
 	log.Println("Succesfully connected to database")
 
 	// server setup
-	t := tokenator.New()
+	var t services.Token = tokenator.New()
 
 	api := api2.New(storage, t)
 	http.ListenAndServe(":8080", api)

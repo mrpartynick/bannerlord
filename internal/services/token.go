@@ -1,6 +1,6 @@
-package tokenator
+package services
 
-type Tokenator interface {
+type Token interface {
 	Generate(login string, isAdmin bool) (string, error)
 	Check(token string, isAdmin bool) bool
 }

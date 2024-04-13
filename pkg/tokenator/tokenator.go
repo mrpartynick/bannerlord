@@ -14,7 +14,7 @@ type tokenator struct {
 	admins map[string]string
 }
 
-func New() Tokenator {
+func New() *tokenator {
 	return &tokenator{
 		make(map[string]string),
 		make(map[string]string),
