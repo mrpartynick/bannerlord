@@ -1,21 +1,21 @@
 package api
 
 import (
+	"bannerlord/internal/services"
 	"bannerlord/internal/services/storage"
-	"bannerlord/pkg/tokenator"
 	"github.com/gin-gonic/gin"
 )
 
 type Config struct {
 	Storage storage.Storage
-	T       tokenator.Tokenator
+	T       services.Token
 }
 
 var Cfg Config
 
 var g *gin.Engine
 
-func New(db storage.Storage, tokenator tokenator.Tokenator) *gin.Engine {
+func New(db storage.Storage, tokenator services.Token) *gin.Engine {
 	Cfg = Config{Storage: db, T: tokenator}
 	g = gin.Default()
 	setRoutes()
