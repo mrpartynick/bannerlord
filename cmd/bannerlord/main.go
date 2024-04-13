@@ -19,7 +19,6 @@ func main() {
 	// storage setup
 	storage := pgprovider.New(cfg)
 	err := storage.Connect()
-
 	if err != nil {
 		log.Fatalf("error with connection to database %v", err)
 	}
