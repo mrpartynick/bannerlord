@@ -2,7 +2,7 @@ package main
 
 import (
 	"bannerlord/config"
-	api2 "bannerlord/internal/api"
+	"bannerlord/internal/api"
 	"bannerlord/internal/pgprovider"
 	"bannerlord/internal/services"
 	"bannerlord/pkg/tokenator"
@@ -27,8 +27,8 @@ func main() {
 	// server setup
 	var t services.Token = tokenator.New()
 
-	api := api2.New(storage, t)
-	http.ListenAndServe(":8080", api)
+	api := api.New(storage, t)
+	http.ListenAndServe(":"+cfg.Server.Port, api)
 }
 
 func getFlags() (*string, *bool, *string) {

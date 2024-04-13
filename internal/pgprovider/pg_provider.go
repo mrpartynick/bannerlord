@@ -18,7 +18,7 @@ func New(cfg *config.Config) storage.Storage {
 
 func (p *pgProvider) Connect() error {
 	p.db = pg.Connect(&pg.Options{
-		Addr:            p.cfg.Host + ":" + p.cfg.Port,
+		Addr:            p.cfg.Postgres.Host + ":" + p.cfg.Postgres.Port,
 		User:            p.cfg.UserName,
 		Password:        p.cfg.Password,
 		Database:        p.cfg.DBName,
