@@ -2,7 +2,7 @@ package pgprovider
 
 import (
 	"bannerlord/config"
-	"bannerlord/internal/services"
+	"bannerlord/internal/services/storage"
 	"context"
 	"github.com/go-pg/pg/v10"
 )
@@ -12,7 +12,7 @@ type pgProvider struct {
 	db  *pg.DB
 }
 
-func New(cfg *config.Config) services.Storage {
+func New(cfg *config.Config) storage.Storage {
 	return &pgProvider{cfg: *cfg}
 }
 
