@@ -25,8 +25,12 @@ func New(db storage.Storage, tokenator services.Token) *gin.Engine {
 func setRoutes() {
 	g.POST("/register", RegisterHandler)
 	g.POST("/auth", AuthHandler)
-	g.GET("/user_banner", GetUserBanner)
 
-	g.POST("/new_banner", CreateBanner)
-	g.PATCH("/update", UpdateBanner)
+	g.GET("/user_banner", authMW, GetUserBanner)
+
+	g.GET("/banner", authMW, adminMW, GetBanners)
+	g.POST("/banner", authMW, adminMW, CreateBanner)
+
+	g.PATCH("/banner/:id", authMW, adminMW, UpdateBanner)
+	g.DELETE("/delete/:id", authMW, adminMW, DeleteBanner)
 }
