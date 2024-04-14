@@ -7,6 +7,7 @@ type Content struct {
 }
 
 type BannerDTO struct {
+	ID        int   `json:"id"`
 	TagIDs    []int `json:"tag_ids"`
 	FeatureID int   `json:"feature_id"`
 	IsActive  bool  `json:"is_active"`

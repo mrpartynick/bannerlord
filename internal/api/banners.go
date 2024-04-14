@@ -113,10 +113,13 @@ func UpdateBanner(c *gin.Context) {
 		return
 	}
 
+	fmt.Println(banner)
 	idS := c.Param("id")
+	fmt.Println(idS)
 	id, _ := strconv.Atoi(idS)
 	banner.ID = id
-	if err = Cfg.Storage.UpdateBanner(&banner); err != nil {
+	err = Cfg.Storage.UpdateBanner(banner)
+	if err != nil {
 		log.Printf(op+"error with updating %v", err)
 		c.AbortWithStatus(http.StatusInternalServerError)
 		return
@@ -128,11 +131,7 @@ func UpdateBanner(c *gin.Context) {
 
 func DeleteBanner(c *gin.Context) {
 	const op = "DeleteBanner"
-	idS, ok := c.GetQuery("id")
-	if !ok {
-		c.AbortWithStatus(http.StatusBadRequest)
-		return
-	}
+	idS := c.Param("id")
 	id, err := strconv.Atoi(idS)
 	if err != nil {
 		c.AbortWithStatus(http.StatusInternalServerError)

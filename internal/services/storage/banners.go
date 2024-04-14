@@ -8,6 +8,6 @@ type banners interface {
 	GetByFeature(feature int) ([]models.Banner, error)
 	GetByTag(tag int) ([]models.Banner, error)
 	GetAll() ([]models.Banner, error)
-	UpdateBanner(banner *models.BannerPatch) error
+	UpdateBanner(banner models.BannerPatch) error
 	DeleteBanner(id int) error
 }

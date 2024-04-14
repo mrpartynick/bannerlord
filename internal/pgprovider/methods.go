@@ -2,11 +2,13 @@ package pgprovider
 
 import (
 	"bannerlord/internal/api/models"
+	models2 "bannerlord/internal/pgprovider/models"
 	"context"
+	"fmt"
 )
 
 func (p *pgProvider) CheckUser(login string) (bool, error) {
-	var result *bool
+	var result models2.Exst
 	_, err := p.db.QueryContext(
 		context.Background(),
 		result,
@@ -16,21 +18,17 @@ func (p *pgProvider) CheckUser(login string) (bool, error) {
 	if err != nil {
 		return false, err
 	}
-	return *result, nil
+	return result.Exists, nil
 }
 
 func (p *pgProvider) CheckAdmin(login string) (bool, error) {
-	var result *bool
-	_, err := p.db.QueryContext(
-		context.Background(),
-		result,
-		CheckUser,
-		login,
-	)
+	var result models2.Exst
+	_, err := p.db.Query(&result, CheckAdmin, login)
 	if err != nil {
 		return false, err
 	}
-	return *result, nil
+	fmt.Println(result)
+	return result.Exists, nil
 }
 
 func (p *pgProvider) CreateUser(login string, password string) error {
@@ -62,10 +60,10 @@ func (p *pgProvider) AuthUser(login string, password string) (bool, error) {
 }
 
 func (p *pgProvider) AuthAdmin(login string, password string) (bool, error) {
-	var result *bool
+	var result models2.Exst
 	_, err := p.db.QueryContext(
 		context.Background(),
-		result,
+		&result,
 		AuthAdmin,
 		login,
 		password,
@@ -73,7 +71,7 @@ func (p *pgProvider) AuthAdmin(login string, password string) (bool, error) {
 	if err != nil {
 		return false, err
 	}
-	return *result, nil
+	return true, nil
 }
 
 func (p *pgProvider) GetBanners(feature int, tag int, isActive bool) ([]models.Banner, error) {
@@ -114,7 +112,7 @@ func (p *pgProvider) GetAll() ([]models.Banner, error) {
 	return result, err
 }
 
-func (p *pgProvider) UpdateBanner(banner *models.BannerPatch) error {
+func (p *pgProvider) UpdateBanner(banner models.BannerPatch) error {
 	t, err := p.db.Begin()
 	defer t.Close()
 
@@ -124,11 +122,12 @@ func (p *pgProvider) UpdateBanner(banner *models.BannerPatch) error {
 
 	_, err = t.Exec(UpdateBanner,
 		banner.FeatureID != nil,
-		*banner.FeatureID,
+		banner.FeatureID,
 		banner.Content != nil,
-		*banner.Content,
+		banner.Content,
 		banner.IsActive != nil,
-		*banner.IsActive)
+		banner.IsActive,
+		banner.ID)
 	if err != nil {
 		return err
 	}

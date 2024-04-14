@@ -25,4 +25,8 @@ stopserver:
 
 deinit:
 	docker rm bann
-	docker network remove bannerlord
+
+restart:
+	docker rm bann
+	make built
+	make runserver

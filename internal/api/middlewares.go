@@ -23,9 +23,6 @@ func authMW(c *gin.Context) {
 			return
 		}
 	default:
-		fmt.Println("Admin authorized")
-		c.Set("super_user", true)
-		c.Next()
 		if Cfg.T.Check(adminToken, true) {
 			fmt.Println("Admin authorized")
 			c.Set("super_user", true)

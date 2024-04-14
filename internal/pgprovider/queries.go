@@ -16,7 +16,7 @@ const (
 				WHERE login= ?;`
 
 	AuthAdmin = `SELECT (password = crypt(?, password)) 
-				AS password_match
+				AS exists
 				FROM admins
 				WHERE login= ?;`
 
@@ -32,16 +32,20 @@ const (
 
 	GetAll = `select * from banner`
 
+	CreateBanner = `INSERT INTO banner (
+    				id, feature, contents, created_at, updated_at, is_active) 
+					VALUES (?, ?, ?, ?, ?, ?);`
+
 	UpdateBanner = `UPDATE banner
       				SET
-          			feature = CASE WHEN ? = true THEN ?,
-          			contents = CASE WHEN ? = true THEN ?,
-					is_active = CASE WHEN ? = true THEN ?
+          			feature = CASE WHEN ? = true THEN ? end,
+          			contents = CASE WHEN ? = true THEN ? end,
+					is_active = CASE WHEN ? = true THEN ? end
 					where id=?`
 
 	InsertTag = `insert into banner_tag (banner_id, tag_id)
 					values (?,?)
-					on conflict do nothing `
+					on conflict do nothing;`
 
-	DeleteBanner = "delete from banner where id=?"
+	DeleteBanner = "delete from banner where id=?;"
 )
