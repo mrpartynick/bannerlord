@@ -1,9 +1,9 @@
 init:
 	docker network create bannerlord
-	make postgres
+	make runpostgres
 	make builtapp
 
-postgres:
+runpostgres:
 	docker run --name postgr --network bannerlord -e POSTGRES_USER=postgre -e POSTGRES_PASSWORD=1234 -p 5432:5432 -d postgres:16
 createdb:
 	docker exec -it postgr createdb --username=postgre --owner=postgre bannerlord
