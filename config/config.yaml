@@ -1,5 +1,5 @@
 postgres:
-  postgres_host: 'localhost'
+  postgres_host: 'postgr'
   postgres_db_name: 'bannerlord'
   postgres_user_name: 'postgre'
   postgres_password: '1234'
