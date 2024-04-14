@@ -1,10 +1,9 @@
 postgres:
-  postgres_host: 'localhost'
+  postgres_host: 'postgr'
   postgres_db_name: 'bannerlord'
-  users_db_name: "users"
-  postgres_user_name: 'postgres'
+  postgres_user_name: 'postgre'
   postgres_password: '1234'
-  postgres_port: '5433'
+  postgres_port: '5432'
 http_server:
   port: "8080"
   host: "localhost"
