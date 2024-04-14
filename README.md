@@ -17,6 +17,8 @@
 
 Запросы приведены в [Postman](https://api.postman.com/collections/30546569-ff21b2a3-28c0-4b4a-8548-68c9adb6bd03?access_key=PMAT-01HVF3BFGSB1AN9QQXAQJGGW3E)
 
+Credentials для авторизации администратора: login - admin, password - 123
+
 Запросы следует отправлять по адресу ```localhost:8080```
 ## Инструкция по запуску
 1. Склонировать данный репозиторий

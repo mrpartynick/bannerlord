@@ -16,7 +16,7 @@ migratedown:
 stoppostgres:
 	docker stop postgr
 
-built:
+builtapp:
 	docker build -t bannerlord:latest .
 runserver:
 	docker run --name bann --network bannerlord -p 8080:8080 bannerlord:latest
